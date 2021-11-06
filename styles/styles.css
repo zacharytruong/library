@@ -1,0 +1,123 @@
+/* Global Styles */
+
+html {
+  font-size: 10px;
+}
+h1, h2, h3, h4 {
+  font-family: 'Tangerine', cursive;
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Merriweather', serif;
+}
+h1 {
+  font-size: 10rem;
+}
+.main-block {
+  display: flex;
+  width: 100%;
+}
+button {
+  background-color: transparent;
+  border: solid 1px #000;
+  border-radius: .5rem;
+  height: 3rem;
+  width: 10rem;
+}
+button:hover {
+  background-color: #000;
+  color: #FFF;
+}
+button:active {
+  transform: translateY(.25rem);
+}
+/* Header section */
+.header {
+  background: linear-gradient(0deg, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url("./../resources/featured-image.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #FFF;
+  height: 400px;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 1rem;
+}
+
+/* Menu section */
+.nav {
+  height: 15rem;
+  align-items: center;
+  padding-left: 10rem;
+}
+
+/* Bookshelf section */
+.bookshelf {
+  justify-content:center;
+  flex-wrap: wrap;
+}
+.book-wrapper {
+  width: 30%;
+  margin: 1rem;
+  padding: 0 5%;
+}
+.book {
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  height: 100%;
+}
+.book-info {
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.book-cover {
+  height: 65%;
+  width: 100%;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+}
+.book-title {
+  font-size: 3rem;
+  text-align: center;
+  margin: 1rem;
+}
+.book-removal {
+  margin: 1rem;
+}
+/* Responsive Design */
+@media (max-width: 767px){
+  h1 {
+    font-size: 4rem;
+  }
+  .header {
+    letter-spacing: .5rem;
+    height: 300px;
+  }
+  .nav {
+    padding-left: 0;
+    justify-content: center;
+  }
+  .book-wrapper {
+    width: 100%;
+  }
+  .book-title {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 1000px) {
+  .book-wrapper {
+    width: 45%;
+  }
+}
+@media (min-width: 1001px) and (max-width: 1440px) {
+  .book-wrapper {
+    padding: 0 2.5%;
+  }
+}
