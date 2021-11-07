@@ -20,9 +20,8 @@ h1 {
 button {
   background-color: transparent;
   border: solid 1px #000;
-  border-radius: .5rem;
-  height: 3rem;
-  width: 10rem;
+  border-radius: 1rem;
+  padding: 1.5rem 5rem;
 }
 button:hover {
   background-color: #000;
@@ -38,7 +37,7 @@ button:active {
   background-repeat: no-repeat;
   background-size: cover;
   color: #FFF;
-  height: 400px;
+  height: 600px;
   justify-content: center;
   align-items: center;
   letter-spacing: 1rem;
@@ -53,13 +52,11 @@ button:active {
 
 /* Bookshelf section */
 .bookshelf {
-  justify-content:center;
   flex-wrap: wrap;
 }
 .book-wrapper {
-  width: 30%;
-  margin: 1rem;
-  padding: 0 5%;
+  width: 25%;
+  padding: 1.5rem;
 }
 .book {
   background: rgba( 255, 255, 255, 0.25 );
@@ -80,21 +77,21 @@ button:active {
 .book-cover {
   height: 65%;
   width: 100%;
-  border-top-left-radius: .5rem;
-  border-top-right-radius: .5rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.book-title, .book-status, .book-removal {
+  margin-bottom: 2rem;
 }
 .book-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   text-align: center;
-  margin: 1rem;
 }
-.book-removal {
-  margin: 1rem;
-}
+
 /* Responsive Design */
 @media (max-width: 767px){
   h1 {
-    font-size: 4rem;
+    font-size: 5rem;
   }
   .header {
     letter-spacing: .5rem;
@@ -107,17 +104,9 @@ button:active {
   .book-wrapper {
     width: 100%;
   }
-  .book-title {
-    font-size: 2.5rem;
-  }
 }
-@media (min-width: 768px) and (max-width: 1000px) {
+@media (min-width: 768px) and (max-width: 1440px) {
   .book-wrapper {
-    width: 45%;
-  }
-}
-@media (min-width: 1001px) and (max-width: 1440px) {
-  .book-wrapper {
-    padding: 0 2.5%;
+    width: 50%;
   }
 }
