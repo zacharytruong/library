@@ -73,6 +73,7 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1.5rem;
 }
 .book-cover {
   height: 65%;
@@ -87,6 +88,8 @@ button:active {
   font-size: 3.5rem;
   text-align: center;
 }
+
+
 
 /* Responsive Design */
 @media (max-width: 767px){
@@ -105,7 +108,7 @@ button:active {
     width: 100%;
   }
 }
-@media (min-width: 768px) and (max-width: 1440px) {
+@media (min-width: 768px) and (max-width: 1100px) {
   .book-wrapper {
     width: 50%;
   }
