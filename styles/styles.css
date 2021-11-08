@@ -17,17 +17,20 @@ h1 {
   display: flex;
   width: 100%;
 }
-button {
+button, #submit {
   background-color: transparent;
   border: solid 1px #000;
   border-radius: 1rem;
   padding: 1.5rem 5rem;
 }
-button:hover {
+#submit {
+  margin: 1rem;
+}
+button:hover, #submit:hover {
   background-color: #000;
   color: #FFF;
 }
-button:active {
+button:active, #submit:active {
   transform: translateY(.25rem);
 }
 /* Header section */
@@ -81,9 +84,13 @@ button:active {
   text-decoration: none;
   cursor: pointer;
 }
-#title, #cover, #status {
+#title, #cover, #readingStatus {
   margin: 1rem;
   width: 70%;
+  font-size: 1.8rem;
+}
+label {
+  font-size: 1.8rem;
 }
 /* Bookshelf section */
 .bookshelf {
@@ -123,8 +130,6 @@ button:active {
   font-size: 3.5rem;
   text-align: center;
 }
-
-
 
 /* Responsive Design */
 @media (max-width: 767px){
