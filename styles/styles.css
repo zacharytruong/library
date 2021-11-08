@@ -50,6 +50,41 @@ button:active {
   padding-left: 10rem;
 }
 
+/* Modal section */
+.modal {
+  display: none;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, .5);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 50% auto 0 auto;
+  width: 50%;
+  padding: 2rem;
+  border: 1px solid #888;
+  border-radius: 1rem;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 3rem;
+  font-weight: bold;
+}
+.close:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#title, #cover, #status {
+  margin: 1rem;
+  width: 70%;
+}
 /* Bookshelf section */
 .bookshelf {
   flex-wrap: wrap;
