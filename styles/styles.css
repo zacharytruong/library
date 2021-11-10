@@ -89,6 +89,9 @@ button:active, #submit:active {
   width: 70%;
   font-size: 1.8rem;
 }
+#readingStatus {
+  width: 50%;
+}
 label {
   font-size: 1.8rem;
 }
@@ -97,7 +100,7 @@ label {
   flex-wrap: wrap;
 }
 .book-wrapper {
-  width: 25%;
+  width: calc(100% / 3);
   padding: 1.5rem;
 }
 .book {
