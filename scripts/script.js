@@ -16,6 +16,67 @@ function Book(cover, title, status){
   this.title = title;
   this.status = status;
 }
+const book1 = new Book("./resources/harrypotter-3.jpg", 
+  "Harry Potter and the Prisoner of Azkaban", 
+  "READ");
+myLibrary.push(book1)
+const book2 = new Book("./resources/harrypotter-4.jpeg", 
+  "Harry Potter and the Goblet of Fire", 
+  "READ");
+myLibrary.push(book2)
+const book3 = new Book("./resources/harrypotter-5.jpeg", 
+  "Harry Potter and the Order of the Phoenix", 
+  "READ");
+myLibrary.push(book3)
+
+// Create book-wrapper process
+function createBookInfo(obj){
+  const bookInfo = document.createElement("div");
+  bookInfo.classList.add("book-info")
+
+  let h3 = document.createElement("h3");
+  let bookStatus = document.createElement("button");
+  let bookRemoval = document.createElement("button");
+  h3.classList.add("book-title")
+  bookStatus.classList.add("book-status")
+  bookRemoval.classList.add("book-removal")
+
+  bookInfo.appendChild(h3)
+  bookInfo.appendChild(bookStatus)
+  bookInfo.appendChild(bookRemoval)
+
+  return bookInfo
+}
+function createBookDiv(){
+  const bookDiv = document.createElement("div");
+  bookDiv.classList.add("book")
+
+  let bookCover = document.createElement("img");
+  bookCover.classList.add("book-cover")
+
+  bookDiv.appendChild(bookCover)
+
+  return bookDiv
+}
+function createBookWrapper(){
+  const bookWrapper = document.createElement("div");
+  bookWrapper.classList.add("book-wrapper")
+
+  bookWrapper.appendChild(createBookDiv())
+  return bookWrapper
+}
+function addNewBookToBookShelf(){
+  return bookshelf.appendChild(createBookWrapper())
+}
+
+
+// Display books from the library
+function displayAllBooks(){
+  for (let book of myLibrary){
+    createBookInfo(book)
+  }
+}
+
 
 function updateNewTitle(){
   return newTitle = title.value;
@@ -33,7 +94,6 @@ addBookBtn.addEventListener("click", () => {
 })
 closeModalBtn.addEventListener("click", () => {
   modal.style.display = "none";
-  clearOldInfo()
 })
 window.addEventListener("click", e => {
   if (e.target == modal){
@@ -69,10 +129,11 @@ function storageAvailable(type) {
 
 if (storageAvailable('localStorage')) {
   // Yippee! We can use localStorage awesomeness
+  
 }
 else {
   // Too bad, no localStorage for us
-  console.log("No storage")
+  
 }
 
 // Get info from adding book form
