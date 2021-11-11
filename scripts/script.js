@@ -16,18 +16,25 @@ function Book(cover, title, status){
   this.title = title;
   this.status = status;
 }
-const book1 = new Book("./resources/harrypotter-3.jpg", 
-  "Harry Potter and the Prisoner of Azkaban", 
-  "READ");
-myLibrary.push(book1)
-const book2 = new Book("./resources/harrypotter-4.jpeg", 
-  "Harry Potter and the Goblet of Fire", 
-  "READ");
-myLibrary.push(book2)
-const book3 = new Book("./resources/harrypotter-5.jpeg", 
-  "Harry Potter and the Order of the Phoenix", 
-  "READ");
-myLibrary.push(book3)
+function addNewBookToLibrary(cover, title, status){
+  const book = new Book(cover, title, status);
+  myLibrary.push(book)
+}
+addNewBookToLibrary("./resources/harrypotter-1.jpeg", 
+"Harry Potter and the Sorceres's Stone", 
+"READ")
+addNewBookToLibrary("./resources/harrypotter-2.jpeg", 
+"Harry Potter and the Chamber of Secretse", 
+"READ")
+addNewBookToLibrary("./resources/harrypotter-3.jpg", 
+"Harry Potter and the Prisoner of Azkaban", 
+"READ")
+addNewBookToLibrary("./resources/harrypotter-4.jpeg", 
+"Harry Potter and the Goblet of Fire", 
+"READ")
+addNewBookToLibrary("./resources/harrypotter-5.jpeg", 
+"Harry Potter and the Order of the Phoenix", 
+"READ")
 
 // Create book-wrapper process
 function createBookInfo(obj){
@@ -41,39 +48,86 @@ function createBookInfo(obj){
   bookStatus.classList.add("book-status")
   bookRemoval.classList.add("book-removal")
 
+  h3.textContent = obj.title;
+  bookStatus.textContent = obj.status;
+  bookRemoval.textContent = "REMOVE";
+
   bookInfo.appendChild(h3)
   bookInfo.appendChild(bookStatus)
   bookInfo.appendChild(bookRemoval)
 
   return bookInfo
 }
-function createBookDiv(){
+function createBookDiv(obj){
   const bookDiv = document.createElement("div");
   bookDiv.classList.add("book")
 
   let bookCover = document.createElement("img");
   bookCover.classList.add("book-cover")
+  bookCover.setAttribute("src", obj.cover)
 
   bookDiv.appendChild(bookCover)
+  bookDiv.appendChild(createBookInfo(obj))
 
   return bookDiv
 }
-function createBookWrapper(){
+function createBookWrapper(obj){
   const bookWrapper = document.createElement("div");
   bookWrapper.classList.add("book-wrapper")
 
-  bookWrapper.appendChild(createBookDiv())
+  bookWrapper.appendChild(createBookDiv(obj))
   return bookWrapper
 }
-function addNewBookToBookShelf(){
-  return bookshelf.appendChild(createBookWrapper())
+function addNewBookToBookShelf(obj){
+  return bookshelf.appendChild(createBookWrapper(obj))
 }
 
 
 // Display books from the library
-function displayAllBooks(){
-  for (let book of myLibrary){
-    createBookInfo(book)
+function displayAllBooks(bookArray){
+  for (let book of bookArray){
+    addNewBookToBookShelf(book)
+  }
+}
+
+// Detects whether localStorage is both supported and available:
+function storageAvailable(type) {
+  var storage;
+  try {
+      storage = window[type];
+      var x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+  }
+  catch(e) {
+      return e instanceof DOMException && (
+          // everything except Firefox
+          e.code === 22 ||
+          // Firefox
+          e.code === 1014 ||
+          // test name field too, because code might not be present
+          // everything except Firefox
+          e.name === 'QuotaExceededError' ||
+          // Firefox
+          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+          // acknowledge QuotaExceededError only if there's something already stored
+          (storage && storage.length !== 0);
+  }
+}
+window.onload = function (){
+  if (storageAvailable('localStorage')) {
+    // Yippee! We can use localStorage awesomeness
+    if (!localStorage.getItem("myLibrary")){
+      
+    } else {
+            
+    }
+    
+  }
+  else {
+    // Too bad, no localStorage for us
+   
   }
 }
 
@@ -101,40 +155,7 @@ window.addEventListener("click", e => {
   }
 })
 
-// Detects whether localStorage is both supported and available:
-function storageAvailable(type) {
-  var storage;
-  try {
-      storage = window[type];
-      var x = '__storage_test__';
-      storage.setItem(x, x);
-      storage.removeItem(x);
-      return true;
-  }
-  catch(e) {
-      return e instanceof DOMException && (
-          // everything except Firefox
-          e.code === 22 ||
-          // Firefox
-          e.code === 1014 ||
-          // test name field too, because code might not be present
-          // everything except Firefox
-          e.name === 'QuotaExceededError' ||
-          // Firefox
-          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-          // acknowledge QuotaExceededError only if there's something already stored
-          (storage && storage.length !== 0);
-  }
-}
 
-if (storageAvailable('localStorage')) {
-  // Yippee! We can use localStorage awesomeness
-  
-}
-else {
-  // Too bad, no localStorage for us
-  
-}
 
 // Get info from adding book form
 title.addEventListener("change", updateNewTitle)
