@@ -20,6 +20,16 @@ function addNewBookToLibrary(cover, title, status){
   const book = new Book(cover, title, status);
   myLibrary.push(book)
 }
+function updateNewTitle(){
+  return newTitle = title.value;
+}
+function updateNewCover(){
+  return newCover = cover.value;
+}
+function updateNewStatus(){
+  return newStatus = readingStatus.value;
+}
+
 addNewBookToLibrary("./resources/harrypotter-1.jpeg", 
 "Harry Potter and the Sorceres's Stone", 
 "READ")
@@ -35,6 +45,53 @@ addNewBookToLibrary("./resources/harrypotter-4.jpeg",
 addNewBookToLibrary("./resources/harrypotter-5.jpeg", 
 "Harry Potter and the Order of the Phoenix", 
 "READ")
+
+// Detects whether localStorage is both supported and available:
+function storageAvailable(type) {
+  var storage;
+  try {
+      storage = window[type];
+      var x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+  }
+  catch(e) {
+      return e instanceof DOMException && (
+          // everything except Firefox
+          e.code === 22 ||
+          // Firefox
+          e.code === 1014 ||
+          // test name field too, because code might not be present
+          // everything except Firefox
+          e.name === 'QuotaExceededError' ||
+          // Firefox
+          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+          // acknowledge QuotaExceededError only if there's something already stored
+          (storage && storage.length !== 0);
+  }
+}
+window.onload = function (){
+  if (storageAvailable('localStorage')) {
+    // Yippee! We can use localStorage awesomeness
+    if (!localStorage.getItem("myLibrary")){
+         console.table(myLibrary)
+         localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+         displayAllBooks(myLibrary)
+         return myLibrary;
+    } else {
+      let savedLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+      myLibrary = savedLibrary;
+      displayAllBooks(myLibrary)
+      return myLibrary;
+    }
+  }
+  else {
+    // Too bad, no localStorage for us
+   displayAllBooks(myLibrary);
+   return myLibrary;
+  }
+}
 
 // Create book-wrapper process
 function createBookInfo(obj){
@@ -90,57 +147,8 @@ function displayAllBooks(bookArray){
   }
 }
 
-// Detects whether localStorage is both supported and available:
-function storageAvailable(type) {
-  var storage;
-  try {
-      storage = window[type];
-      var x = '__storage_test__';
-      storage.setItem(x, x);
-      storage.removeItem(x);
-      return true;
-  }
-  catch(e) {
-      return e instanceof DOMException && (
-          // everything except Firefox
-          e.code === 22 ||
-          // Firefox
-          e.code === 1014 ||
-          // test name field too, because code might not be present
-          // everything except Firefox
-          e.name === 'QuotaExceededError' ||
-          // Firefox
-          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-          // acknowledge QuotaExceededError only if there's something already stored
-          (storage && storage.length !== 0);
-  }
-}
-window.onload = function (){
-  if (storageAvailable('localStorage')) {
-    // Yippee! We can use localStorage awesomeness
-    if (!localStorage.getItem("myLibrary")){
-      
-    } else {
-            
-    }
-    
-  }
-  else {
-    // Too bad, no localStorage for us
-   
-  }
-}
 
 
-function updateNewTitle(){
-  return newTitle = title.value;
-}
-function updateNewCover(){
-  return newCover = cover.value;
-}
-function updateNewStatus(){
-  return newStatus = readingStatus.value;
-}
 
 // Add book form modal
 addBookBtn.addEventListener("click", () => {
