@@ -27,14 +27,26 @@ function updateNewCover(){
   return newCover = cover.value;
 }
 function updateNewStatus(){
-  return newStatus = readingStatus.value;
+  return readingStatus.value;
 }
-
+function submitBook(){
+  const newBook = new Book(newCover, newTitle, readingStatus.value.toUpperCase());
+  myLibrary.push(newBook)
+  addNewBookToBookShelf(myLibrary[myLibrary.length - 1])
+  clearForm()
+  modal.style.display = "none";
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+}
+function clearForm(){
+  newTitle = "";
+  newCover = "";
+  readingStatus.value = "READ";
+}
 addNewBookToLibrary("./resources/harrypotter-1.jpeg", 
 "Harry Potter and the Sorceres's Stone", 
 "READ")
 addNewBookToLibrary("./resources/harrypotter-2.jpeg", 
-"Harry Potter and the Chamber of Secretse", 
+"Harry Potter and the Chamber of Secrets", 
 "READ")
 addNewBookToLibrary("./resources/harrypotter-3.jpg", 
 "Harry Potter and the Prisoner of Azkaban", 
@@ -75,7 +87,6 @@ window.onload = function (){
   if (storageAvailable('localStorage')) {
     // Yippee! We can use localStorage awesomeness
     if (!localStorage.getItem("myLibrary")){
-         console.table(myLibrary)
          localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
          displayAllBooks(myLibrary)
          return myLibrary;
@@ -139,16 +150,12 @@ function addNewBookToBookShelf(obj){
   return bookshelf.appendChild(createBookWrapper(obj))
 }
 
-
 // Display books from the library
 function displayAllBooks(bookArray){
   for (let book of bookArray){
     addNewBookToBookShelf(book)
   }
 }
-
-
-
 
 // Add book form modal
 addBookBtn.addEventListener("click", () => {
@@ -163,12 +170,15 @@ window.addEventListener("click", e => {
   }
 })
 
-
-
 // Get info from adding book form
 title.addEventListener("change", updateNewTitle)
 cover.addEventListener("change", updateNewCover)
 readingStatus.addEventListener("change", updateNewStatus)
 
 // Submit adding book form
-// submit.addEventListener("click", refreshLib)
+submit.addEventListener("click", submitBook)
+
+// Reading statu button
+const bookStatusBtns = document.getElementsByClassName("book-status");
+let data = [].map.call(bookStatusBtns, elem => elem.textContent);
+// Romove button
