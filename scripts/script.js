@@ -7,8 +7,42 @@ const title = document.getElementById("title");
 const readingStatus = document.getElementById("readingStatus");
 const submit = document.getElementById("submit");
 const bookshelf = document.querySelector(".bookshelf");
-let myLibrary = [];
-let newTitle, newCover, newStatus;
+let myLibrary = [
+  {
+      "cover": "./resources/harrypotter-1.jpeg",
+      "title": "Harry Potter and the Sorceres's Stone",
+      "status": "READ"
+  },
+  {
+      "cover": "./resources/harrypotter-2.jpeg",
+      "title": "Harry Potter and the Chamber of Secretse",
+      "status": "READ"
+  },
+  {
+      "cover": "./resources/harrypotter-3.jpg",
+      "title": "Harry Potter and the Prisoner of Azkaban",
+      "status": "READ"
+  },
+  {
+      "cover": "./resources/harrypotter-4.jpeg",
+      "title": "Harry Potter and the Goblet of Fire",
+      "status": "READ"
+  },
+  {
+      "cover": "./resources/harrypotter-5.jpeg",
+      "title": "Harry Potter and the Order of the Phoenix",
+      "status": "READ"
+  },
+  {
+      "cover": "./resources/harrypotter-1.jpeg",
+      "title": "Harry Potter and the Sorceres's Stone",
+      "status": "READ"
+  }
+];
+let newTitle, newCover;
+
+// Load myLibrary from storage if possible
+checkLocalStorage();
 
 // Global functions
 function Book(cover, title, status){
@@ -36,27 +70,18 @@ function submitBook(){
   clearForm()
   modal.style.display = "none";
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+  location.reload()
 }
 function clearForm(){
   newTitle = "";
   newCover = "";
   readingStatus.value = "READ";
 }
-addNewBookToLibrary("./resources/harrypotter-1.jpeg", 
-"Harry Potter and the Sorceres's Stone", 
-"READ")
-addNewBookToLibrary("./resources/harrypotter-2.jpeg", 
-"Harry Potter and the Chamber of Secrets", 
-"READ")
-addNewBookToLibrary("./resources/harrypotter-3.jpg", 
-"Harry Potter and the Prisoner of Azkaban", 
-"READ")
-addNewBookToLibrary("./resources/harrypotter-4.jpeg", 
-"Harry Potter and the Goblet of Fire", 
-"READ")
-addNewBookToLibrary("./resources/harrypotter-5.jpeg", 
-"Harry Potter and the Order of the Phoenix", 
-"READ")
+function removeAllBooks(parent){
+  while (parent.firstChild){
+    parent.removeChild(parent.firstChild)
+  }
+}
 
 // Detects whether localStorage is both supported and available:
 function storageAvailable(type) {
@@ -83,25 +108,26 @@ function storageAvailable(type) {
           (storage && storage.length !== 0);
   }
 }
-window.onload = function (){
-  if (storageAvailable('localStorage')) {
-    // Yippee! We can use localStorage awesomeness
-    if (!localStorage.getItem("myLibrary")){
-         localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
-         displayAllBooks(myLibrary)
-         return myLibrary;
-    } else {
-      let savedLibrary = JSON.parse(localStorage.getItem("myLibrary"));
-      myLibrary = savedLibrary;
-      displayAllBooks(myLibrary)
-      return myLibrary;
+
+function checkLocalStorage(){
+    if (storageAvailable('localStorage')) {
+      // Yippee! We can use localStorage awesomeness
+      if (!localStorage.getItem("myLibrary")){
+           localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+           displayAllBooks(myLibrary)
+           return myLibrary;
+      } else {
+        let savedLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+        myLibrary = savedLibrary;
+        displayAllBooks(myLibrary)
+        return myLibrary;
+      }
     }
-  }
-  else {
-    // Too bad, no localStorage for us
-   displayAllBooks(myLibrary);
-   return myLibrary;
-  }
+    else {
+      // Too bad, no localStorage for us
+     displayAllBooks(myLibrary);
+     return myLibrary;
+    }
 }
 
 // Create book-wrapper process
@@ -178,7 +204,32 @@ readingStatus.addEventListener("change", updateNewStatus)
 // Submit adding book form
 submit.addEventListener("click", submitBook)
 
-// Reading statu button
-const bookStatusBtns = document.getElementsByClassName("book-status");
-let data = [].map.call(bookStatusBtns, elem => elem.textContent);
+// Reading status button
+const bookStatusBtns = Array.from(document.getElementsByClassName("book-status"));
+for (let i = 0; i < bookStatusBtns.length; i++){
+  bookStatusBtns[i].addEventListener("click", changeStatus)
+  function changeStatus(){
+    if (myLibrary[i].status == "READ"){
+      myLibrary[i].status = "UNREAD";
+      this.textContent = "UNREAD";
+      localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+    } else if (myLibrary[i].status == "READ"){
+      myLibrary[i].status = "READ";
+      this.textContent = "READ";
+      localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+    }
+  }
+}
+
 // Romove button
+const removeBtns = Array.from(document.getElementsByClassName("book-removal"));
+for (let i = 0; i < bookStatusBtns.length; i++){
+  removeBtns[i].addEventListener("click", removeBook)
+  function removeBook(){
+    myLibrary.splice(i, 1)
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+    removeAllBooks(bookshelf)
+    displayAllBooks(myLibrary)
+    location.reload()
+  }
+}
