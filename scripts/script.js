@@ -213,7 +213,7 @@ for (let i = 0; i < bookStatusBtns.length; i++){
       myLibrary[i].status = "UNREAD";
       this.textContent = "UNREAD";
       localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
-    } else if (myLibrary[i].status == "READ"){
+    } else if (myLibrary[i].status == "UNREAD"){
       myLibrary[i].status = "READ";
       this.textContent = "READ";
       localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
